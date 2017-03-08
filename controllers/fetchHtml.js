@@ -11,9 +11,12 @@ module.exports = (req, res) => {
       method: 'GET',
       url: domain
     }, function (err, response, body) {
+
       if (err) return callback(err);
-      let domainData = fetchData(body);
+
       let $ = cheerio.load(body);
+      let domainData = fetchData($('div').text());
+
       const hrefs = $('a').map((i, el) => { return $(el).attr('href'); }).get();
       const filteredHrefs = hrefs.map((href) => {
         if (href[0] === '/') href = domain + href;
@@ -22,23 +25,22 @@ module.exports = (req, res) => {
       .filter((href) => {
         return href.slice(0, 4) === 'http';
       });
-      callback(null, domainData, filteredHrefs)
+      callback(null, domainData, filteredHrefs);
     }
 
     );
   }
 
   const requestLinks = (domainData, hrefs, callback) => {
-    console.log(hrefs, 'hrefs');
-    console.log(domainData, 'domainData');
     async.eachSeries(hrefs, (href, eachCb) => {
       request({
         method: 'GET',
         url: href
       }, (err, response, hrefBody) => {
-        if (err) {console.log('there is error');return eachCb(err);}
-        console.log('each');
-        const linkData = fetchData(hrefBody);
+        if (err) {console.log('there is error'); return eachCb(err); }
+
+        let $ = cheerio.load(hrefBody);
+        const linkData = fetchData($('div').text());
         domainData.emails = domainData.emails.concat(linkData.emails);
         domainData.phones = domainData.phones.concat(linkData.phones);
         domainData.places = domainData.places.concat(linkData.places);

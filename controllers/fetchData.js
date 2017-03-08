@@ -13,5 +13,6 @@ module.exports = (body) => {
   domainData.emails = knwlInstance.get('emails').map((emailObj) => { return emailObj.address; });
   domainData.phones = knwlInstance.get('phones').map((phoneObj) => { return phoneObj.phone; });
   domainData.places = knwlInstance.get('places').map((placeObj) => { return placeObj.place; });
+  console.log(domainData, 'first one');
   return domainData;
 };
