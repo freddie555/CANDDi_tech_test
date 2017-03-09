@@ -20,5 +20,5 @@ to install the dependencies.
 Run node server/searchDomain.js in the terminal to start the server, and enter a valid email to start your search!
 
 Authors
--------
+--------
 Freddie Freeston
