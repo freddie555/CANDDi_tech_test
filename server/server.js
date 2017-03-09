@@ -1,16 +1,38 @@
 const express = require('express');
+const inquirer = require('inquirer');
 const bodyParser = require('body-parser');
 
 const fetchHtml = require('../controllers/fetchHtml');
 
-const app = express();
+const searchDomain = () => {
+  inquirer.prompt([{name: 'email', message: 'Enter an email to start your search:'}]).then((response) => {
+    let email = response.email;
+    const handleInvalid = () => {
+      inquirer.prompt([{name: 'email', message: 'Invalid email. Please reenter:'}]).then((response) => {
+        email = response.email;
+      });
+    };
+    if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
+      handleInvalid();
+      fetchHtml(email);
+    } else {
+      console.log('Loading data...');
+      fetchHtml(email);
+    }
+  });
+};
 
-app.use(bodyParser.json());
+searchDomain();
 
-app.post('/', (req, res) => {
-  return fetchHtml(req, res);
-});
 
-app.listen(3000, () => {
-  console.log('Listening on port 3000');
-});
+// const app = express();
+//
+// app.use(bodyParser.json());
+//
+// app.post('/', (req, res) => {
+//   return fetchHtml(req, res);
+// });
+//
+// app.listen(3000, () => {
+//   console.log('Listening on port 3000');
+// });

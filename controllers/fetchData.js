@@ -14,6 +14,5 @@ module.exports = (body) => {
   domainData.emails = _.uniq(knwlInstance.get('emails').map((emailObj) => { return emailObj.address; }));
   domainData.phones = _.uniq(knwlInstance.get('phones').map((phoneObj) => { return phoneObj.phone; }));
   domainData.places = _.uniq(knwlInstance.get('places').map((placeObj) => { return placeObj.place; }));
-  console.log(domainData, 'first one');
   return domainData;
 };
