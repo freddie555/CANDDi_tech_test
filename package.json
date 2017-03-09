@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+
+  },
+  "dependencies": {
     "async": "^2.1.5",
     "body-parser": "^1.17.1",
     "chai": "^3.5.0",
@@ -17,6 +20,5 @@
     "knwl.js": "^1.0.2",
     "phoneformat.js": "^1.0.3",
     "underscore": "^1.8.3"
-  },
-  "dependencies": {}
+  }
 }
