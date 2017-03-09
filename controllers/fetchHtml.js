@@ -11,6 +11,7 @@ module.exports = (req, res) => {
       method: 'GET',
       url: domain
     }, function (err, response, body) {
+      console.log(body, 'body');
       if (err) return callback(err);
 
       let $ = cheerio.load(body);

@@ -2,7 +2,7 @@ const Knwl = require('knwl.js');
 const _ = require('underscore');
 const placesPlugin = require('../node_modules/knwl.js/default_plugins/places');
 const emailsPlugin = require('../node_modules/knwl.js/default_plugins/emails');
-const phonesPlugin = require('../node_modules/knwl.js/default_plugins/phones');
+const phonesPlugin = require('../node_modules/knwl.js/experimental_plugins/international_phones');
 
 module.exports = (body) => {
   let domainData = {};
