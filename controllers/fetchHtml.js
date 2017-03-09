@@ -6,12 +6,13 @@ const async = require('async');
 module.exports = (email) => {
   const domain = 'http://www.' + email.slice(email.indexOf('@') + 1);
   const requestHome = (callback) => {
+    console.log('Requesting home page...');
     request({
       method: 'GET',
       url: domain
     }, function (err, response, body) {
       if (err) return callback(err);
-
+      console.log('Searching through home page...');
       let $ = cheerio.load(body);
       const domainData = fetchData($('div').text());
 
@@ -29,27 +30,21 @@ module.exports = (email) => {
   };
 
   const requestLinks = (domainData, hrefs, callback) => {
+    console.log('Searching through website links...');
     async.eachSeries(hrefs, (href, eachCb) => {
       request({
         method: 'GET',
         url: href
       }, (err, response, hrefBody) => {
-        if (err) {console.log('there is error'); return eachCb(err); }
-
+        if (err) return eachCb(err);
         let $ = cheerio.load(hrefBody);
         const linkData = fetchData($('div').text());
         linkData.emails.forEach((email) => {
-          if (!domainData.emails.includes(email)) {domainData.emails.push(email);}
+          if (!domainData.emails.includes(email)) { domainData.emails.push(email); }
         });
-        linkData.phones.forEach((phone) => {
-          if (!domainData.phones.includes(phone)) {domainData.phones.push(phone);}
+        linkData.links.forEach((link, i) => {
+          if (link && !domainData.links.includes(link)) { domainData.links.push(link); }
         });
-        linkData.places.forEach((place, i) => {
-          if (!domainData.places.includes(place)) {domainData.places.push(place);}
-        });
-        // domainData.emails = domainData.emails.concat(linkData.emails);
-        // domainData.phones = domainData.phones.concat(linkData.phones);
-        // domainData.places = domainData.places.concat(linkData.places);
         eachCb();
       });
     }, (err) => {
@@ -58,17 +53,14 @@ module.exports = (email) => {
     });
   };
 
-   async.waterfall([
-     requestHome,
-     requestLinks
-   ], (err, data) => {
-     if (err) {
-       console.log('There is an error');
-     } else {
-       console.log('Here is your data:');
-       console.log('emails:  ' + data.emails);
-       console.log('phone numbers:  ' + data.phones);
-       console.log('places:  ' + data.places);
-     }
-   });
+  async.waterfall([
+    requestHome,
+    requestLinks
+  ], (err, data) => {
+    if (err) {
+      console.log('There is an error');
+    } else {
+      console.log(`\nHere is your data for ${email}: \nemails:  ${data.emails}\nlinks:  ${data.links}\n`);
+    }
+  });
 };

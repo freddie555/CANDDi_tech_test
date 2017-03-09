@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./spec"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
   "dependencies": {
     "async": "^2.1.5",
     "body-parser": "^1.17.1",
@@ -18,6 +17,7 @@
     "inquirer": "^3.0.6",
     "knwl.js": "^1.0.2",
     "phoneformat.js": "^1.0.3",
+    "rewire": "^2.5.2",
     "underscore": "^1.8.3"
   }
 }
