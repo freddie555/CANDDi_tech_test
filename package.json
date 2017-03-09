@@ -17,6 +17,7 @@
     "inquirer": "^3.0.6",
     "knwl.js": "^1.0.2",
     "phoneformat.js": "^1.0.3",
+    "request": "^2.80.0",
     "rewire": "^2.5.2",
     "underscore": "^1.8.3"
   }

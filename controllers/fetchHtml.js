@@ -7,6 +7,7 @@ module.exports = (email) => {
   const domain = 'http://www.' + email.slice(email.indexOf('@') + 1);
   const requestHome = (callback) => {
     console.log('Requesting home page...');
+
     request({
       method: 'GET',
       url: domain
