@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 
-const fetchHtml = require('../controllers/fetchHtml');
+const fetchHtml = require('./fetchHtml');
 
 const searchDomain = () => {
   inquirer.prompt([{name: 'email', message: 'Enter an email to start your search:'}]).then((response) => {
