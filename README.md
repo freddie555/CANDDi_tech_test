@@ -17,7 +17,7 @@ Clone the repo and run
 
 to install the dependencies.
 
-Run node server/searchDomain.js in the terminal to start the server, and enter a valid email to start your search!
+Run node controllers/searchDomain.js in the terminal to start the server, and enter a valid email to start your search!
 
 Authors
 --------
