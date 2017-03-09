@@ -61,7 +61,7 @@ module.exports = (email) => {
     if (err) {
       console.log('There is an error');
     } else {
-      console.log(`\nHere is your data for ${email}: \nemails:  ${data.emails}\nlinks:  ${data.links}\n`);
+      console.log(`\nHere is your data for ${email}:\n\nemails:\n${data.emails}\n\nlinks:\n${data.links}\n`);
     }
   });
 };
